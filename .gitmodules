@@ -1,0 +1,6 @@
+[submodule "depend/stb"]
+	path = depend/stb
+	url = git@github.com:nothings/stb.git
+[submodule "depend/glfw"]
+	path = depend/glfw
+	url = git@github.com:glfw/glfw.git
