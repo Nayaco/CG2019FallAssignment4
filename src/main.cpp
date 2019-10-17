@@ -26,6 +26,8 @@ using namespace glm;
 Camera camera(vec3(0.f, 30.f, 90.f), 100.f, -90.f, degrees(atan(- 1.f/ 3.f)));
 
 bool  firstMouse = true;
+bool  running = true;
+bool  keyPress = false;
 float deltaTime  = 0.f;
 float nowTime    = 0.f; 
 float currFrame  = 0.f;
@@ -360,13 +362,20 @@ void frameHandler()
     currFrame = glfwGetTime();
     deltaTime = currFrame - lastFrame;
     lastFrame = currFrame;
-    nowTime   += deltaTime;
+    if(running) nowTime += deltaTime;
 }
 
 void keyPressHandler(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && keyPress == false) {
+        running = 1 - running;
+        keyPress = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE) {
+        keyPress = false;
+    }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         camera.ProcessKeyboard(FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
